@@ -31,6 +31,15 @@ def main():
       random_return = np.random.normal(mu, sigma)
       results[sim, year] = results[sim, year - 1] * np.exp(random_return)
 
+  param_text = (
+    f"Initial investment: ${initial_investment:,.0f}\n"
+    f"Years: {years}\n"
+    f"Expected annual return: {mu*100:.2f}%\n"
+    f"Volatility (standard deviation): {sigma*100:.2f}%\n"
+    f"Simulations: {simulations}\n"
+    f"Paths plotted: {plot_paths}"
+)
+
 
   plt.figure(figsize=(10, 5))
   for i in range(plot_paths, simulations):
@@ -39,6 +48,17 @@ def main():
   plt.xlabel('Years')
   plt.ylabel('Investment Value ($)')
   plt.grid(True)
+
+  ax = plt.gca()
+  plt.subplots_adjust(right=0.75)
+  ax.text(
+    1.02, 0.95, param_text,
+    transform=ax.transAxes,
+    fontsize=10,
+    va='top', ha='left',
+    bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5')
+  )
+
   plt.show()
 
   plt.figure(figsize=(10,5))
